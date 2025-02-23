@@ -4,12 +4,45 @@
     {
       "src": "package.json",
       "use": "@vercel/node"
+    },
+    {
+      "src": "index.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "tsconfig.json",
+      "use": "@vercel/static-build"
+    },
+    {
+      "src": "jest.config.js",
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
     {
+      "src": "/",
+      "dest": "/index.js"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "/public/(.*)",
+      "dest": "/public/index.js"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.js"
     }
-  ]
+  ],
+  "env": {
+    "CUSTOM_ENV_VARIABLE": "value"
+  },
+  "functions": {
+    "api/index.js": {
+      "memory": 512,
+      "maxDuration": 10
+    }
+  }
 }
